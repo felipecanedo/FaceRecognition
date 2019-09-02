@@ -1,0 +1,35 @@
+package can.core;
+
+import can.abstraction.Layer;
+import can.util.Matrix;
+
+public class PoolingLayer extends Layer {
+
+	private static final long serialVersionUID = 1L;
+
+	//Spatial Extent or Receptive Field F
+	private Integer fSpatialExtent = 2;
+	//Stride S
+	private Integer sStride = 2;
+
+	public PoolingLayer(Double[][][] input) {
+		this.input = input;
+		Integer outputSize = (input.length-this.fSpatialExtent)/this.sStride+1;
+		this.output = Matrix.getMatrix(outputSize, outputSize, input[0][0].length);
+	}
+
+	@Override
+	public void activateLayer() {
+		for(int k=0; k < this.output[0][0].length; k++) {
+			Integer startW = (this.sStride*-1);
+			for(int w=0; w<this.output.length;w++) {
+				Integer startH = (this.sStride*-1);
+				startW += this.sStride;
+				for(int h=0; h<this.output[0].length;h++) {
+					startH += this.sStride;
+					this.output[w][h][k] = Matrix.max(Matrix.getKernel(input, this.fSpatialExtent,startW,startH,k), k);
+				}
+			}
+		}
+	}
+}

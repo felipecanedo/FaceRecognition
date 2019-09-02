@@ -1,0 +1,52 @@
+package can.core;
+
+import can.abstraction.Layer;
+import can.util.Matrix;
+
+public class ConvolutionLayer extends Layer {
+	
+	private static final long serialVersionUID = 1L;
+
+	//Spatial Extent or Receptive Field F
+	private Integer fSpatialExtent = 2;
+	//Number of filters K
+	private Integer kFilters = 1;
+	//Stride S
+	private Integer sStride = 1;
+	//Amount of zero padding P.
+	private Integer pPadding = 0;
+	
+	public ConvolutionLayer(Double[][][] input) {
+		this.init(input);
+	}
+	
+	public ConvolutionLayer(Double[][][] input, Integer kFilters) {
+		this.kFilters = kFilters;
+		this.init(input);
+	}
+	
+	public void init(Double[][][] input) {
+		//this.padding();
+		Integer width = (input.length-this.fSpatialExtent+2*this.pPadding)/this.sStride+1;
+		this.input = input;
+		this.output = Matrix.getMatrix(width,width,this.kFilters);
+		this.biases = Matrix.getMatrix(1, 1, this.kFilters, true);
+		this.weights = Matrix.createWeights(fSpatialExtent,fSpatialExtent,input[0][0].length,this.kFilters);
+	}
+	
+	@Override
+	public void activateLayer() {
+		for(int k=0; k<this.kFilters; k++) {
+			Integer startW = (this.sStride*-1);
+			for(int w=0; w<this.output.length;w++) {
+				Integer startH = (this.sStride*-1);
+				startW += this.sStride;
+				for(int h=0; h<this.output[0].length;h++) {
+					startH += this.sStride;
+					this.output[w][h][k] += Matrix.sum(Matrix.conv(this.input, this.weights.get(k),startW,startH)) + biases[0][0][k];
+				}
+			}
+		}
+		this.activationFunction();
+	}
+}
