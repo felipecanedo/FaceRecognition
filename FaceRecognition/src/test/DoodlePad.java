@@ -24,7 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import can.core.NetworkTrainer;
-import can.util.Matrix;
+
 
     public class DoodlePad
     {
@@ -122,7 +122,7 @@ import can.util.Matrix;
 
           
           if( classes == null) {
-        	  classes = NetworkTrainer.getClasses("\\Java\\mnist\\Images\\3_095.png");
+        	  //classes = NetworkTrainer.getClasses("\\Java\\mnist\\Images\\3_095.png");
               //classes = NetworkTrainer.getClasses("\\Java\\canvas.png");
           }
           
@@ -134,7 +134,7 @@ import can.util.Matrix;
         		  index = i;
         	  }
           }
-          Matrix.print(classes);
+          //Matrix.print(classes);
           System.out.println("Your Number is: " + (index));
       }
       

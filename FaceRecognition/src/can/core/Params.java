@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import can.util.Matrix;
+import can.util.MatrixUtils;
 import can.util.NetParameters;
 
 public class Params implements Serializable {
@@ -20,8 +20,8 @@ public class Params implements Serializable {
 	public Double[][] bias;	
 	
 	private Params(Integer inputSize, Integer outputSize) {
-		this.weights = Matrix.randomMatrix(outputSize,inputSize);
-		this.bias 	= Matrix.fixedValueMatrix(outputSize, 1, 0.82);
+		this.weights = null; //MatrixUtils.randomMatrix(outputSize,inputSize);
+		this.bias 	= null; //MatrixUtils.fixedValueMatrix(outputSize, 1, 0.82);
 	}
 
 	public static Params getInstance(Integer inputSize, Integer outputSize, String fileName) {

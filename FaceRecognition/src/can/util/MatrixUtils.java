@@ -351,6 +351,18 @@ public class MatrixUtils {
         }
         return a;
     }
+    
+    public Double[][][] zeroMatrix(Integer w, Integer h, Integer d) {
+        Double[][][] a = new Double[w][h][d];
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+            	for (int k = 0; k < d; k++) {
+            		a[i][j][k] = 0.0;
+            	}
+            }
+        }
+        return a;
+    }
    
 	
     public Double[][][] random(Integer w, Integer h, Integer d) {
@@ -370,6 +382,23 @@ public class MatrixUtils {
         int l = a[0].length;
         int d = a[0][0].length;
         return  "(" + w + "," + l  + "," + d +")";
+    }
+    
+    public static void printMatrix(Double[][][] matrix) {
+        for (int d = 0; d < matrix[0][0].length; d++) {
+        	System.out.println("Dimension --> " + d);
+            for (int h = 0; h < matrix[0].length; h++) {
+            	System.out.print("[");
+            	for (int w = 0; w < matrix.length; w++) {
+            		System.out.printf("%.0f", matrix[w][h][d]);
+            		if( w != (matrix.length-1)) {
+            			System.out.print(" , ");	
+            		}
+            	}
+            	System.out.println("]");
+            }
+            System.out.println("");
+        }
     }
    
 }

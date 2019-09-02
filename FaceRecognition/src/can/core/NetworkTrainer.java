@@ -18,6 +18,5 @@ public class NetworkTrainer {
 		Double[][][] poolLayer = np.random(16,16,3);
 		Double[][][] fcLayer   = np.random(1,1,10);
 		
-		
 	}
 }
